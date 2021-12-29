@@ -8,17 +8,25 @@ use App\Models\Issues;
 class IssuesController extends Controller
 {
     /**
+     * Display Issues that are currently unassigned.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public static function getUnassignedIssues($id)
+    {
+        if (!$id) { $id = auth()->user() }
+        return Issues::getUnassignedIssues($user->id);
+
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public static function getUserIssues()
+    public static function getUserIssues($id)
     {
-        $user = auth()->user();
-    print($user->id);
-    print($user->name);
-    print($user->email);
-
+        if (!$id) { $id = auth()->user() }
         return Issues::getUserIssues($user->id);
 
     }

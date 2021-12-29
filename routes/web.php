@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +18,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Auth::routes();
 
 $userId = Auth::id();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/admin', [App\Http\Controllers\HomeController::class, 'admin'])->name('home_admin');
+Route::get('/admin', [HomeController::class, 'admin'])->name('home_admin');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::post('/changeAssignment', [HomeController::class, 'changeAssignment']);

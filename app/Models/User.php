@@ -42,4 +42,33 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+
+    /**
+     * Get the Role.Name of the UserID.
+     *
+     * 
+     */
+    public static function getRole($id) {
+        $roles = User::leftjoin('roles', 'roles.id', '=', 'users.roleID')
+                            ->select('roles.name')
+                            ->where('users.id', $id)
+                            //->get();
+                            ->pluck('name');
+        return $roles[0];
+    }
+
+    /**
+     * get the Team under UserID.
+     *
+     * 
+     */
+    public static function getTeam($id) {
+        $team = User::select('users.id', 'users.firstName', 'users.lastName')
+                            ->where('users.teamID', $id)
+                            ->get();
+                            //->pluck('name');
+        return $team;
+    }
 }

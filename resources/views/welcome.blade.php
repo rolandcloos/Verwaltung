@@ -21,6 +21,7 @@
         </style>
     </head>
     <body class="antialiased">
+        
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
@@ -38,37 +39,36 @@
         </div>
 
 
-            <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
-                
-                <div class="ml4 text-center text-gray-500">
-                    <div class="row">
-                    
-                    </div>
-                    <div class="row">
-                    Impressum
-                    </div>
-                    <div class="row">
-                    Kontakt
-                    </div>
-                </div>
-                <div class="ml4 text-center text-gray-500">
-                    <div class="row">
-                    iCash (the solution in cash management)
-                    </div>
-                    <div class="row">
-                    
-                    </div>
-                    <div class="row">
-                    
-                    </div>
-                </div>
-
-                <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
-                    created with Laravel v {{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
-                </div>
-
-            </div>
+        <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
             
+            <div class="ml4 text-center text-gray-500">
+                <div class="row">
+                
+                </div>
+                <div class="row">
+                Impressum
+                </div>
+                <div class="row">
+                Kontakt
+                </div>
+            </div>
+            <div class="ml4 text-center text-gray-500">
+                <div class="row">
+                projectA { solution for project management }
+                </div>
+                <div class="row">
+                
+                </div>
+                <div class="row">
+                
+                </div>
+            </div>
+
+            <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
+                created with Laravel v {{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
+            </div>
+
         </div>
+            
     </body>
 </html>

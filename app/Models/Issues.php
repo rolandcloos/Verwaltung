@@ -20,4 +20,13 @@ class Issues extends Model
         return $issues;
     }
 
+    public static function getUnassignedIssues($id)
+    {
+        $issues = Issues::select('issues.*')
+                            //->where('issues.assignedToUserID', 0)
+                            ->get();
+                            
+        return $issues;
+    }
+
 }

@@ -41,7 +41,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
-                        <div class="btn btn-info">GUESTS</div>
+                        
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
@@ -55,9 +55,11 @@
                                 </li>
                             @endif
                         @else
+                        <?php $role = $data['role']; ?>
+                            <div class="btn btn-info">{{ $role }}</div>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->firstname }} {{ Auth::user()->lastname }}
+                                {{ Auth::user()->firstname }} {{ Auth::user()->lastname }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

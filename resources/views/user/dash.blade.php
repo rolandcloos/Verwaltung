@@ -1,11 +1,11 @@
-@extends('user.layouts.app')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">{{ $data['role'] }} {{ __('Dashboard') }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -15,7 +15,10 @@
                     @endif
 
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-header">
+                            <b>Issues assigned to you</b>
+                        </div>
+                        <div class="card card-body" id='uIssuesCard'>
                             
                             <table class="table">
                                 <tr>
@@ -26,14 +29,14 @@
                                     <th>Status</th>
                                     <th>Edit</th>
                                 </tr>
-                            @foreach($userIssues as $Issue)
+                            @foreach($data['userIssues'] as $Issue)
                                 <tr>
                                     <td>{{ $Issue->id }}</td>
                                     <td>{{ $Issue->name }}</td>
                                     <td>{{ $Issue->description }}</td>
                                     <td>{{ $Issue->assignedLastName}}, {{ $Issue->assignedFirstName}}</td>
                                     <td>
-                                                              
+                                                            
                                         <a href="#">
                                             @if ($Issue->stateID === 0)  
                                                 <div class="btn btn-info" id="stateChange">  
@@ -71,12 +74,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                      
+                            </div>        
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </div>
