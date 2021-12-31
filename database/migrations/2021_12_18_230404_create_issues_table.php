@@ -17,8 +17,8 @@ class CreateIssuesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
+            $table->integer('clientID')->default(0);
             $table->integer('assignedToUserID')->default(0);
-
             $table->integer('reporterID')->default(0);
             $table->integer('targetID')->default(0);
             $table->integer('softwareID')->default(0);

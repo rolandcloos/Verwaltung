@@ -10,25 +10,40 @@ class IssuesController extends Controller
     /**
      * Display Issues that are currently unassigned.
      *
-     * @return \Illuminate\Http\Response
+     * @return App\Models\Issues::getUnassignedIssues($id)
      */
     public static function getUnassignedIssues($id)
     {
-        if (!$id) { $id = auth()->user() }
+        if (!$id) { $id = auth()->user(); }
         return Issues::getUnassignedIssues($user->id);
 
     }
 
     /**
-     * Display a listing of the resource.
+     * Returns all User assigned Issues.
      *
-     * @return \Illuminate\Http\Response
+     * @return App\Models\Issues::getUserIssues($id)
      */
     public static function getUserIssues($id)
     {
-        if (!$id) { $id = auth()->user() }
+        if (!$id) { $id = auth()->user(); }
         return Issues::getUserIssues($user->id);
 
+    }
+
+    public function changeAssignment(Request $request)
+    {
+        echo "Assignment user<br>";
+
+        $assignedUserID = array_keys($request->input('assignTo'));
+        $issueID = $request->input('issueID');
+
+        echo "assigning issue no. " . $issueID . " to user " . $assignedUserID[0] . " ()<br>";
+
+        if (Issues::assignToID($issueID, $assignedUserID[0])) 
+        return redirect()->back();
+
+        return "ERROR";
     }
 
     /**

@@ -50,11 +50,11 @@
                                     <td>{{ $Issue->name }}</td>
                                     <td>{{ $Issue->description }}</td>
                                     <td>
-                                        <div class="btn {{ $btnClass }}" id="AssignmentChange" data-bs-toggle="modal" data-bs-target="#assignmentModal" data-issue="5">  
+                                        <div class="btn {{ $btnClass }}" onclick="assignmentTo({{ $Issue->id }})" id="AssignmentChange" data-bs-toggle="modal" data-bs-target="#assignmentModal" data-bs-issue="{{ $Issue->id }}">  
                                             @if ($Issue->assignedToUserID === 0)
                                                     Assign
                                             @elseif ($Issue->assignedToUserID > 0)
-                                                    Roland
+                                                    {{ $Issue->assignedToUserID }}
                                             @endif
                                         </div>
                                     </td>
@@ -91,15 +91,13 @@
                                             </button>
                                         </div>
                                         <div class="modal-body" id="smallBody">
-                                        <input id='issueIDInput' name='issueID' value='-1'/>
                                             <div>
                                                 <form method='POST' action='changeAssignment'>
                                                     @csrf
-                                                    <input id='issueIDInput' name='issueID' value='-1'/>
+                                                    <input id='issueIDInput' name='issueID' value='-1' hidden/>
                                                     @foreach ($data['team'] as $teammate)
                                                         <div class="row">
                                                             <input type="submit" id="assignTo" name="assignTo[{{$teammate->id}}]" value="{{ $teammate->firstName }} {{ $teammate->lastName }}" />
-                                                            <a href='/' >{{ $teammate->firstName }} {{ $teammate->lastName }}</a>
                                                         </div>
                                                     @endforeach
                                                 </form>
@@ -115,18 +113,10 @@
         </div>
     </div> 
 </div>
-// TODO(Roland): parse Button data (LINE 53) to the modal in LINE 84
-
 <script>
-    
-    $('#assignmentModal').on('shown.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var issue = button.data('issue') // Extract info from data-* attributes, here 'issueid'
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var modal = $(this)
-        modal.find('.modal-title').html('New message to ' + issue)
-        modal.find('.modal-body input#issueID').val(issue)
-    });
+    function assignmentTo(issue) {
+        var issueIDInput = document.querySelector('#assignmentModal input#issueIDInput')
+        issueIDInput.value = issue
+    }
 </script>
 @endsection

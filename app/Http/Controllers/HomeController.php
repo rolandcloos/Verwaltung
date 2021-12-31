@@ -32,13 +32,15 @@ class HomeController extends Controller
 
         switch (Auth::user()->roleID) {
             case 1:
-                echo "RoleID: 1";
-                $data['unassignedIssues'] = Issues::getUnassignedIssues(Auth::id());
+                echo "RoleID: 1"; // Admin
+                $data['unassignedIssues'] = Issues::getUnassignedIssues();
                 $data['team'] = User::getTeam(Auth::id());
                 return view('admin.dash', ['data' => $data] );
                 
             case 2:
-                echo "RoleID: 2";
+                echo "RoleID: 2"; // Client
+                $data['unassignedIssues'] = Issues::getUnassignedIssues(Auth::id());
+                $data['team'] = User::getTeam(Auth::id());
                 return view('client.dash', ['data' => $data] );
             
             case 3:
@@ -60,20 +62,8 @@ class HomeController extends Controller
     public function admin()
     {
         $openIssues = IssuesController::getOpenIssues();
-        echo "huhuuuuuuu";
         return view('admin.index')->with($openIssues);
     }
 
-    public function changeAssignment(Request $request)
-    {
-        echo "Assignment<br>";
-        $assignedUserID = array_keys($request->input('assignTo'));
-        $issueID = $request->input('issueID');
-
-        Issues::assignToID($issueID, $assignedUserID);
-
-
-        return;
-        return redirect()->back();
-    }
+    
 }

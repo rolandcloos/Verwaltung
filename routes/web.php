@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IssuesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +27,4 @@ $userId = Auth::id();
 Route::get('/admin', [HomeController::class, 'admin'])->name('home_admin');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::post('/changeAssignment', [HomeController::class, 'changeAssignment']);
+Route::post('/changeAssignment', [IssuesController::class, 'changeAssignment']);
