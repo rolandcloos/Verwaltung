@@ -33,7 +33,8 @@ class HomeController extends Controller
         switch (Auth::user()->roleID) {
             case 1:
                 // Admin
-                $data['team'] = User::getClients();
+                $data['clients'] = User::getClients();
+                $data['team'] = User::getTeam(Auth::id());
                 $data['Issues'] = Issues::getUserIssues();
                 //$data['assignedIssues'] = Issues::getAssignedIssues(Auth::id());
                 return view('admin.dash', ['data' => $data] );
@@ -45,6 +46,7 @@ class HomeController extends Controller
                 return view('client.dash', ['data' => $data] );
             
             case 3:
+                // User
                 $data['team'] = [];
                 $data['Issues'] = Issues::getUserIssues(Auth::id());
                 return view('user.dash', ['data' => $data] );
