@@ -81,11 +81,11 @@ class User extends Authenticatable
     public static function getClients() {
         DB::enableQueryLog(); // Enable query log
 
-        $team = dd(User::groupby('clientID')->pluck('clientID'));
+        $clients = User::groupby('clientID')->pluck('clientID');
 
-       dd(DB::getQueryLog());
-       dd($team);
+       //dd(DB::getQueryLog());
+       //dd($clients);
 
-        return $team;
+        return $clients;
     }
 }

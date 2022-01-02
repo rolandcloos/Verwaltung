@@ -22,18 +22,25 @@ class Issues extends Model
     }
 */
     public static function getUserIssues($userID = null) {
-        $user = User::select('clientID')
-                        ->where('users.id' , Auth::id())
-                        ->get();
-        $clientID = @$user[0]->clientID;
+        if($userID) {
+            $user = User::select('clientID')
+                            ->where('users.id' , Auth::id())
+                            ->get();
+            $clientID = @$user[0]->clientID;
+        } else {
+            $clientID = null;
+        }
         $whereSQL = [ ['issues.clientID', 'like' , '%' . $clientID . '%'], ['issues.assignedToUserID', 'like', '%' . $userID . '%'] ]; 
         if($clientID === $userID) { $whereSQL = [ ['issues.clientID', 'like' , '%' . $clientID . '%'] ]; }
-        if($clientID === null || $clientID === 0 ) { $whereSQL = [ ['issues.assignedToUserID', 'like', '%' . $userID . '%'] ]; }
+        if($clientID === null || $clientID === 0 ) { $whereSQL = [ ]; }
 
         $issues = Issues::leftjoin('users', 'users.id', '=', 'issues.assignedToUserID')
                         ->leftjoin('issueStates', 'issueStates.id', '=', 'issues.stateID')
                         ->select('issues.*', 'issueStates.name AS state', 'users.firstname  AS assignedFirstName', 'users.lastname AS assignedLastName', 'users.clientID')
                         ->where($whereSQL)->get();     
+
+        //dd('client: ' . $clientID . ' - User: ' . $userID) ;
+        
         return $issues;
     }
 
