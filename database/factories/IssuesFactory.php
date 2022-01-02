@@ -17,6 +17,8 @@ class IssuesFactory extends Factory
             'name' => $this->faker->word(2),
             'description' => $this->faker->sentence(10,true),
             'parentIssueID' => $this->faker->randomDigit(),
+            'assignedToUserID' => $this->faker->randomDigit(),
+            'clientID' => '9',
         ];
     }
 }

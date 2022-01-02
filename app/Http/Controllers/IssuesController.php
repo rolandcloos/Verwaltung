@@ -24,26 +24,22 @@ class IssuesController extends Controller
      *
      * @return App\Models\Issues::getUserIssues($id)
      */
-    public static function getUserIssues($id)
+    public static function getUserIssues($userID)
     {
-        if (!$id) { $id = auth()->user(); }
-        return Issues::getUserIssues($user->id);
+        return Issues::getUserIssues(null, $userID);
 
     }
 
     public function changeAssignment(Request $request)
     {
-        echo "Assignment user<br>";
-
+        var_dump($request->input('assignTo'));
         $assignedUserID = array_keys($request->input('assignTo'));
         $issueID = $request->input('issueID');
-
-        echo "assigning issue no. " . $issueID . " to user " . $assignedUserID[0] . " ()<br>";
-
         if (Issues::assignToID($issueID, $assignedUserID[0])) 
         return redirect()->back();
 
-        return "ERROR";
+        echo "Error while assigning Issue " . $issueID . " to User " . print_r($assignedUserID) . "<br>";
+        return "Please contact the administrator";
     }
 
     /**

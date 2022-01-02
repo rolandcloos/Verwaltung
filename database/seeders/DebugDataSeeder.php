@@ -15,7 +15,7 @@ class DebugDataSeeder extends Seeder
     public function run()
     {
 
-        \App\Models\User::factory(10)->create();
+        \App\Models\User::factory(8)->create();
         \App\Models\Issues::factory(10)->create();
 
     }

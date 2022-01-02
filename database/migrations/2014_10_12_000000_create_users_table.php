@@ -21,7 +21,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('roleID')->default('2');
-            $table->integer('teamID')->default('11');
+            $table->integer('clientID')->default(0);
+            $table->integer('teamID')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

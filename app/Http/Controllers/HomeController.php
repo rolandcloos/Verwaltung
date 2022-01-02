@@ -32,23 +32,24 @@ class HomeController extends Controller
 
         switch (Auth::user()->roleID) {
             case 1:
-                echo "RoleID: 1"; // Admin
-                $data['unassignedIssues'] = Issues::getUnassignedIssues();
-                $data['team'] = User::getTeam(Auth::id());
+                // Admin
+                $data['team'] = User::getClients();
+                $data['Issues'] = Issues::getUserIssues();
+                //$data['assignedIssues'] = Issues::getAssignedIssues(Auth::id());
                 return view('admin.dash', ['data' => $data] );
                 
             case 2:
-                echo "RoleID: 2"; // Client
-                $data['unassignedIssues'] = Issues::getUnassignedIssues(Auth::id());
+                // Client
                 $data['team'] = User::getTeam(Auth::id());
+                $data['Issues'] = Issues::getUserIssues(Auth::id());
                 return view('client.dash', ['data' => $data] );
             
             case 3:
-                $data['userIssues'] = Issues::getUserIssues(Auth::id());
+                $data['team'] = [];
+                $data['Issues'] = Issues::getUserIssues(Auth::id());
                 return view('user.dash', ['data' => $data] );
             
             Default:
-            echo "RoleID: Default";
                 return view('client.dash', ['data' => $data] );
         }
 

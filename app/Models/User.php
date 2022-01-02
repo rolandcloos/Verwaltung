@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use DB;
 
 class User extends Authenticatable
 {
@@ -69,6 +70,22 @@ class User extends Authenticatable
                             ->where('users.teamID', $id)
                             ->get();
                             //->pluck('name');
+        return $team;
+    }
+
+    /**
+     * get all clients.
+     *
+     * 
+     */
+    public static function getClients() {
+        DB::enableQueryLog(); // Enable query log
+
+        $team = dd(User::groupby('clientID')->pluck('clientID'));
+
+       dd(DB::getQueryLog());
+       dd($team);
+
         return $team;
     }
 }
